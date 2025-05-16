@@ -1,0 +1,13 @@
+{
+  "$schema": "https://facets-cloud.github.io/facets-schemas/schemas/ecs_cluster/ecs_cluster.schema.json",
+  "kind": "ecs_cluster",
+  "flavor": "default",
+  "version": "0.1",
+  "disabled": false,
+  "metadata": {},
+  "spec": {
+    "cluster": {
+      "lifecycle": "spot"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "kind": "ecs_service",
+  "flavor": "default",
+  "version": "0.2",
+  "spec": {
+    "runtime": {
+      "ports": {
+        "http": {
+          "port": "8080",
+          "service_port": "8080",
+          "protocol": "tcp"
+        }
+      },
+      "size": {
+        "cpu": 1024,
+        "memory": 2
+      },
+      "readonly_root_filesystem": true
+    },
+    "env": {
+      "POSTGRES_USER": "${postgres.database.out.interfaces.writer.username}",
+      "POSTGRES_PASS": "${postgres.database.out.interfaces.writer.password}",
+      "SPRING_PROFILES_ACTIVE": "postgres",
+      "POSTGRES_URL": "‘jdbc:postgresql://${postgres.database.out.interfaces.writer.host}/postgres’",
+      "AWS_S3_BUCKET": "‘${s3.s3bucket.out.attributes.bucket_name}’",
+      "AWS_REGION": "‘${s3.s3bucket.out.attributes.bucket_region}’"
+    },
+    "release": {
+      "image": "${blueprint.self.artifacts.ecsdemoproject-petclinic}",
+      "registry_name": "facets-artifactory"
+    },
+    "cloud_permissions": {
+      "aws": {
+        "iam_policies": {
+          "iam-policies1": {
+            "arn": "${s3.s3bucket.out.attributes.read_write_iam_policy_arn}"
+          }
+        }
+      }
+    }
+  },
+  "inputs": {
+    "network_details": {
+      "resource_name": "vpc-network",
+      "resource_type": "network"
+    },
+    "ecs_details": {
+      "resource_name": "ecs-cluster",
+      "resource_type": "ecs_cluster"
+    }
+  },
+  "disabled": false
+}

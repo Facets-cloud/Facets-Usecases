@@ -1,0 +1,37 @@
+{
+  "flavor": "aws_ecs_alb",
+  "metadata": {
+    "labels": {
+      "deliveryType": "MANUAL"
+    }
+  },
+  "kind": "ingress",
+  "disabled": true,
+  "version": "0.1",
+  "spec": {
+    "public": true,
+    "rules": {
+      "rule1": {
+        "ecs_service_arn": "${ecs_service.petclinic.out.attributes.ecs_service_arn}",
+        "port": 8080,
+        "priority": 1,
+        "path": "/*",
+        "health_check": {
+          "protocol": "HTTP",
+          "path": "/",
+          "matcher": "200-499",
+          "interval": 30,
+          "timeout": 5,
+          "healthy_threshold": 2,
+          "unhealthy_threshold": 2
+        }
+      }
+    }
+  },
+  "inputs": {
+    "network_details": {
+      "resource_name": "vpc-network",
+      "resource_type": "network"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "network",
+  "flavor": "aws_vpc",
+  "version": "0.1",
+  "lifecycle": "ENVIRONMENT_NO_DEPS",
+  "disabled": false,
+  "depends_on": [],
+  "metadata": {},
+  "spec": {}
+}

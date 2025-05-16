@@ -1,0 +1,25 @@
+{
+  "kind": "postgres",
+  "flavor": "rds",
+  "version": "0.2",
+  "disabled": true,
+  "metadata": {},
+  "spec": {
+    "postgres_version": "14",
+    "size": {
+      "writer": {
+        "instance": "db.t4g.medium"
+      },
+      "reader": {
+        "instance": "db.t4g.medium",
+        "instance_count": 1
+      }
+    }
+  },
+  "inputs": {
+    "network_details": {
+      "resource_name": "vpc-network",
+      "resource_type": "network"
+    }
+  }
+}
